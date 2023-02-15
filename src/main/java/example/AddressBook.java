@@ -9,7 +9,7 @@ import java.util.List;
 public class AddressBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<BuddyInfo> buddies;
 
@@ -22,7 +22,6 @@ public class AddressBook {
     }
     public void addBuddy(BuddyInfo buddyInfo) {
         this.buddies.add(buddyInfo);
-        // buddyInfo.setAddressBook(this);
     }
 
     public BuddyInfo getBuddy(int i) {
@@ -31,7 +30,6 @@ public class AddressBook {
 
     public void removeBuddy(int i) {
         BuddyInfo b = this.buddies.remove(i);
-        // b.setAddressBook(null);
     }
 
     @Override
@@ -42,10 +40,10 @@ public class AddressBook {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 }
