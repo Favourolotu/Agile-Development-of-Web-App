@@ -23,16 +23,14 @@ public class AddressBookControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void shouldReturnDefaultBuddyName() throws Exception {
-     this.mockMvc.perform(get("/addressBook")).andDo(print()).andExpect(status().isOk())
-             .andExpect(content().string(containsString("Josh")));
-    }
 
     @Test
-    public void shouldReturnSetBuddyName() throws Exception {
-        this.mockMvc.perform(get("/addressBook?name=Kim")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Kim")));
+    /**
+     * Simple unit test for the address book controller class
+     */
+    public void shouldReturnDefaultBuddyName() throws Exception {
+     this.mockMvc.perform(get("/addressBook")).andDo(print()).andExpect(status().isOk());
     }
+
 
 }

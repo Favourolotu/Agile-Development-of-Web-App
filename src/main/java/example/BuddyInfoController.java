@@ -1,7 +1,6 @@
 package example;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
@@ -10,35 +9,25 @@ import java.util.Iterator;
 @RestController
 public class BuddyInfoController {
     @Autowired
-    private BuddyInfoRepository buddyInfoRepository;
-    @Autowired
     private AddressBookRepository addressBookRepository;
 
-    @RequestMapping (value = "/buddyInfo", method = RequestMethod.GET)
-    public String buddyInfo( Model model) {
 
-        AddressBook addressBook = new AddressBook();
+    @RequestMapping(value = "/getBuddyInfo", method = RequestMethod.GET)
+    public BuddyInfo getBuddy(@RequestParam("id") Integer id){
+        AddressBook addressBook = addressBookRepository.findById(1L);
+        return addressBook.getBuddy(id-1);
+    }
 
-        BuddyInfo buddy1 = new BuddyInfo("Bauer");
-        BuddyInfo buddy2 = new BuddyInfo("Brian");
-        BuddyInfo buddy3 = new BuddyInfo("Kim");
-        BuddyInfo buddy4 = new BuddyInfo("Palmer");
-
-
-        addressBook.addBuddy(buddy1);
-        addressBook.addBuddy(buddy2);
-        addressBook.addBuddy(buddy3);
-        addressBook.addBuddy(buddy4);
-
-        addressBookRepository.save(addressBook);
-
-        String allBuddies = "";
-        for (BuddyInfo buddy : buddyInfoRepository.findAll()) {
-
-            allBuddies += buddy.toString() + "\n";
-
+    @RequestMapping(value = "/addBuddyInfo", method = RequestMethod.POST)
+    public BuddyInfo addBuddy(@RequestParam("name") String name){
+        if (addressBookRepository.findById(1L) == null){
+            addressBookRepository.save(new AddressBook());
         }
-        return allBuddies;
+        AddressBook addressBook = addressBookRepository.findById(1L);
+        BuddyInfo buddyInfo = new BuddyInfo(name);
+        addressBook.addBuddy(buddyInfo);
+        addressBookRepository.save(addressBook);
+        return buddyInfo;
     }
 
 }

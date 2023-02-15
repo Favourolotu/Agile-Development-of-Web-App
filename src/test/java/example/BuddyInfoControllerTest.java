@@ -20,11 +20,19 @@ public class BuddyInfoControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+
     @Test
-    public void shouldReturnDefaultBuddyDetails() throws Exception {
-        this.mockMvc.perform(get("/buddyInfo")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Palmer")));
+    /**
+     * Serves as an integration test as it touches all aspects of the required functionality
+     */
+    public void testAddGetBuddyInfo() throws Exception {
+        this.mockMvc.perform(post("/addBuddyInfo?name=Ray")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Ray")));
+
+        this.mockMvc.perform(get("/getBuddyInfo?id=1")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Ray")));
     }
+
 
 
 }
