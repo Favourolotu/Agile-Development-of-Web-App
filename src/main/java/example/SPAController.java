@@ -28,7 +28,6 @@ public class SPAController {
     public String addBuddy(@ModelAttribute("buddy") BuddyInfo buddyInfo) {
         AddressBook addressBook = addressBookRepository.findById(1L);
         addressBook.addBuddy(buddyInfo);
-        buddyInfoRepository.save(buddyInfo);
         addressBookRepository.save(addressBook);
         return "buddyInfo";
     }
@@ -42,4 +41,23 @@ public class SPAController {
         model.addAttribute("addressBook", addressBook);
         return "addressBook";
     }
+
+    @GetMapping("/spaStartPage")
+    public String spaDisplay(Model model) {
+        model.addAttribute("addressBook", new AddressBook());
+        model.addAttribute("buddy", new BuddyInfo());
+        return "spaView";
+    }
+
+    /*@PostMapping("/updateStartPage")
+
+    public String updateDisplay(Model model, BuddyInfo buddyInfo) {
+        AddressBook addressBook = addressBookRepository.findById(1L);
+        addressBook.addBuddy(buddyInfo);
+        addressBookRepository.save(addressBook);
+        //model.addAttribute("buddy", new BuddyInfo());
+        return "spaView";
+    }
+
+     */
 }

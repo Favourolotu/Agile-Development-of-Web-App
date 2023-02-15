@@ -10,7 +10,8 @@
     <p><input type="submit" value="Create/View Address Book" /></p>
 </form>
 
-<h1>Create Buddy</h1>
+
+<h1>Add Buddy</h1>
 <form action="#" th:action="@{/addBuddy}" th:object="${buddy}" method="post">
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
